@@ -1,0 +1,32 @@
+.card-container{
+  position: relative; 
+  padding-top: 100%;
+}
+.img-container{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.img-overlay{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 0.5s ease;
+}
+
+.content{
+  color: white;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.img-overlay:hover{
+  background-color: rgba(0, 0, 0, 0.5);
+}

@@ -1,3 +1,30 @@
 .App{
   height: 100vh;
 }
+
+a {
+  text-decoration: none;
+  color: #000;
+}
+
+.nav-link, .page-link {
+  color: #dc3545;
+}
+
+.page-item.active .page-link {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.nav-item .nav-link.active {
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+
+.nav-item .nav-link:hover {
+  color: #000;
+}
+
+.page-item .page-link:hover {
+  color: #000;
+}

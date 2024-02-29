@@ -1,0 +1,21 @@
+.image-container{
+  
+}
+
+.image-container img {
+  height: 500px;
+  object-fit: cover;
+  z-index:0;
+}
+
+.caption h3{
+  color: white;
+}
+
+.item{
+  
+}
+
+/* .title, .content{
+  display: none;
+} */
