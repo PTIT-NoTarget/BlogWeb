@@ -30,6 +30,7 @@ export default function ChatMessage() {
       senderId: sender.userId,
     }
     setMessages([...messages, chatMessage]);
+    
     stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
     fetch(url + "/api/v1/user/message", {
       method: "POST",
