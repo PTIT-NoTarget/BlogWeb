@@ -26,8 +26,8 @@ import MessageTest2 from "./component/chat/MessageTest2";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
 
-export const url = "http://localhost:6868";
-
+//export const url = "http://localhost:6868";
+export const url = "https://blogweb-be-cf7553c6a34d.herokuapp.com";
 function App() {
   const [Toast, setToast] = useState({
     show: false,
