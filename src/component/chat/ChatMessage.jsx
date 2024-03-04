@@ -5,11 +5,12 @@ import { useEffect, useState } from "react";
 import { useSocketStore } from "../../store/socketStore";
 
 export default function ChatMessage() {
-  const { sender, receiver, chatbox, messages, setMessages } = useMessageStore();
+  const { sender, receiver, chatbox, messages, setMessages } =
+    useMessageStore();
   const [message, setMessage] = useState("");
   const { receivedMessage, stompClient, isConnected } = useSocketStore();
   useEffect(() => {
-    if(chatbox){
+    if (chatbox) {
       setMessages(chatbox.chatMessages);
     }
   }, [chatbox, setMessages]);
@@ -28,7 +29,7 @@ export default function ChatMessage() {
       dateCreated: date,
       receiverId: receiver.userId,
       senderId: sender.userId,
-    }
+    };
     setMessages([...messages, chatMessage]);
     stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
     fetch(url + "/api/v1/user/message", {
@@ -64,11 +65,28 @@ export default function ChatMessage() {
         <Card.Header>
           <div className="row">
             <div className="col-1">
-              <Image
-                src={receiver?.avatar}
-                roundedCircle
-                className="img-fluid"
-              />
+              <div
+                style={{
+                  position: "relative",
+                  paddingTop: "100%",
+                  width: "100%",
+                  overflow: "hidden",
+                }}
+              >
+                <Image
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                  }}
+                  src={receiver?.avatar}
+                  roundedCircle
+                  className="img-fluid"
+                />
+              </div>
             </div>
             <div className="col-11 my-auto">
               <h5 className="my-auto">{receiver?.fullName}</h5>
@@ -92,13 +110,27 @@ export default function ChatMessage() {
                 }
               >
                 {message.senderId === receiver.userId && (
-                  <div className="me-2">
+                  <div
+                    className="me-2"
+                    style={{
+                      position: "relative",
+                      width: "40px",
+                      height: "40px",
+                      overflow: "hidden",
+                    }}
+                  >
                     <Image
-                      src={receiver.avatar}
+                      style={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                      src={receiver?.avatar}
                       roundedCircle
                       className="img-fluid"
-                      width={40}
-                      height={40}
                     />
                   </div>
                 )}

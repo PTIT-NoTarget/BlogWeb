@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Image, Dropdown } from "react-bootstrap";
 import { useMessageStore } from "../../store/messageStore";
 
-export default function ChatBoxItem({chatbox}){
+export default function ChatBoxItem({ chatbox }) {
   const [hover, setHover] = useState(false);
   const [setting, setSetting] = useState(false);
   const [boxReceiver, setBoxReceiver] = useState([]);
-  const {sender, setReceiver, setChatbox} = useMessageStore();
+  const { sender, setReceiver, setChatbox } = useMessageStore();
   useEffect(() => {
-    if(chatbox.user1.userId === sender.userId){
+    if (chatbox.user1.userId === sender.userId) {
       setBoxReceiver(chatbox.user2);
-    }
-    else{
+    } else {
       setBoxReceiver(chatbox.user1);
     }
   }, [chatbox, sender]);
@@ -21,7 +20,7 @@ export default function ChatBoxItem({chatbox}){
       onMouseOver={() => setHover(true)}
       onMouseOut={() => setHover(false)}
       onClick={() => {
-        setReceiver(boxReceiver)
+        setReceiver(boxReceiver);
         setChatbox(chatbox);
         console.log(chatbox);
       }}
@@ -32,7 +31,28 @@ export default function ChatBoxItem({chatbox}){
       }
     >
       <div className="col-3">
-        <Image src={boxReceiver?.avatar} roundedCircle className="img-fluid" />
+        <div
+          style={{
+            position: "relative",
+            paddingTop: "100%",
+            width: "100%",
+            overflow: "hidden",
+          }}
+        >
+          <Image
+            style={{
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+            src={boxReceiver?.avatar}
+            roundedCircle
+            className="img-fluid"
+          />
+        </div>
       </div>
       <div className="col-9 my-auto d-flex justify-content-between">
         <div>
@@ -46,7 +66,7 @@ export default function ChatBoxItem({chatbox}){
               setSetting(!setting);
             }}
           ></i>
-          <Dropdown show={setting} align={{ lg: 'end' }}>
+          <Dropdown show={setting} align={{ lg: "end" }}>
             <Dropdown.Menu>
               <Dropdown.Item
                 onClick={() => {

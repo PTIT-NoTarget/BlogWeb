@@ -11,7 +11,7 @@ import {
   Offcanvas,
 } from "react-bootstrap";
 
-function NavbarTab() {
+function NavbarTab({ profile }) {
   return (
     <>
       <ul className="navbar-nav col-12 col-md-9 text-center order-2 order-md-1">
@@ -26,7 +26,10 @@ function NavbarTab() {
           </a>
         </li>
         <li className="nav-item">
-          <a href="/upload-blog" className="nav-link link-danger">
+          <a
+            href={profile ? "/upload-blog" : "/sign-in"}
+            className="nav-link link-danger"
+          >
             Upload Post
           </a>
         </li>
@@ -48,7 +51,7 @@ function NavbarTab() {
 function Navbar() {
   const [sign, setSign] = useState(null);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-  const {logout, profile} = useAuthStore();
+  const { logout, profile } = useAuthStore();
   useEffect(() => {
     if (localStorage.getItem("accessToken")) {
       setSign(
@@ -78,9 +81,7 @@ function Navbar() {
                 window.location.href = "/profile/" + profile.username;
               }}
             >
-              <strong>
-                {profile.fullName}
-              </strong>
+              <strong>{profile.fullName}</strong>
             </Dropdown.Item>
             <Dropdown.Divider />
             <Dropdown.Item
@@ -191,11 +192,11 @@ function Navbar() {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <NavbarTab/>
+                <NavbarTab profile={profile} />
               </Offcanvas.Body>
             </Offcanvas>
             <div className="row collapse navbar-collapse justify-content-center justify-content-md-between align-items-center">
-              <NavbarTab />
+              <NavbarTab profile={profile} />
               <div className="col-12 col-md-3 d-flex justify-content-end align-items-center order-1 order-md-2">
                 {sign}
               </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { url } from "../../App";
 
 import { Spinner, Button } from "react-bootstrap";
@@ -14,6 +14,11 @@ function UploadBlog({ setToast }) {
   const [thumbnail, setThumbnail] = useState(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+
+  useEffect(() => {
+    document.title = "Upload Blog";
+  }, []);
+
   const addPost = () => {
     const formData = new FormData();
     formData.append("thumbnail", thumbnail);
@@ -76,7 +81,11 @@ function UploadBlog({ setToast }) {
         }
       })
       .catch((error) => {
-        setToast({ show: true, content: "Upload post failed", type: "warning" });
+        setToast({
+          show: true,
+          content: "Upload post failed",
+          type: "warning",
+        });
       })
       .finally(() => {
         setLoading(false);
@@ -115,19 +124,22 @@ function UploadBlog({ setToast }) {
             <label htmlFor="title"> Title </label>
           </div>
           <div className="mb-3 z-3" data-color-mode="light">
-            <MDEditor value={content} onChange={setContent} height={"500px"}/>
+            <MDEditor value={content} onChange={setContent} height={"500px"} />
           </div>
-          <BlogTag setToast={setToast} tags={tags} setTags={setTags} textPlaceholder={"Tối đa 5 tag"} textBtn={"Add a new tag"}/>
+          <BlogTag
+            setToast={setToast}
+            tags={tags}
+            setTags={setTags}
+            textPlaceholder={"Tối đa 5 tag"}
+            textBtn={"Add a new tag"}
+          />
           <div className="d-flex justify-content-center">
             {loading ? (
               <Spinner animation="border" variant="danger" role="status">
                 <span className="visually-hidden">Loading...</span>
               </Spinner>
             ) : (
-              <Button
-                variant="danger"
-                onClick={addPost}
-              >
+              <Button variant="danger" onClick={addPost}>
                 Upload
               </Button>
             )}

@@ -18,6 +18,7 @@ import Profile from "./component/profile/Profile";
 import { useState, useEffect, useRef } from "react";
 import { useAuthStore } from "./store/authStore";
 import { useSocketStore } from "./store/socketStore";
+import { useBaseStore } from "./store/baseStore";
 
 import ToastMessage from "./component/base/ToastMessage";
 import Message from "./component/chat/Message";
@@ -26,22 +27,24 @@ import MessageTest2 from "./component/chat/MessageTest2";
 import SockJS from "sockjs-client";
 import { over } from "stompjs";
 
-//export const url = "http://localhost:6868";
-export const url = "https://blogweb-be-cf7553c6a34d.herokuapp.com";
+export const url = "http://localhost:6868";
+//export const url = "https://blogweb-be-cf7553c6a34d.herokuapp.com";
+
 function App() {
   const [Toast, setToast] = useState({
     show: false,
     message: "",
     type: "",
   });
+  const { title } = useBaseStore();
   const {
+    isSignedIn,
     profile,
-    accessToken,
     refreshToken,
     setAccessToken,
     setRefreshToken,
   } = useAuthStore();
-  let {
+  const {
     stompClient,
     setStompClient,
     isConnected,
@@ -73,7 +76,7 @@ function App() {
   }, [refreshToken, setAccessToken, setRefreshToken]);
 
   useEffect(() => {
-    if (!isConnected) {
+    if (!isConnected && isSignedIn) {
       let socket = new SockJS(url + "/ws");
       setStompClient(over(socket));
       onConnected();
@@ -93,6 +96,10 @@ function App() {
       );
     }
   }, [stompClient]);
+
+  useEffect(() => {
+    document.title = title;
+  },[]);
 
   return (
     <div className="App">
